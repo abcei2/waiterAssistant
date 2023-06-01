@@ -4,7 +4,7 @@ import { Modal, View, Text, Pressable, ScrollView } from "react-native";
 import { SvgComponent } from "../icons";
 import ProductFastSearch from "./ProductFastSearch";
 
-export default function OrderItem() {
+export default function CustomerOrderItem() {
   const [isVisible, setIsVisible] = useState(false);
   const [prodsAndAmount, setProdsAndAmount] = useState([
     { name: "Coca Cola", amount: 2, subtotal: 20 },
