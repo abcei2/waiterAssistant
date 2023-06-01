@@ -2,7 +2,7 @@ import tw from 'twrnc';
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 
-const Accordion = ({ title, children }) => {
+const CustomerOrderAccordion = ({ title, children, amount, subtotal }) => {
   const [expanded, setExpanded] = useState(false);
   return (
     <View style={{}}>
@@ -11,6 +11,7 @@ const Accordion = ({ title, children }) => {
         onPress={() => setExpanded(!expanded)}
       >
         <Text style={tw`text-xl font-semibold`}>{title}</Text>
+        <Text style={tw`text-xl font-semibold`}>{title}</Text>
         <Text style={tw`text-xl font-semibold`}>{expanded ? "-" : "+"}</Text>
       </Pressable>
       {expanded && <View style={tw`px-4 py-2`}>{children}</View>}
@@ -18,4 +19,4 @@ const Accordion = ({ title, children }) => {
   );
 };
 
-export default Accordion;
+export default CustomerOrderAccordion;
