@@ -11,27 +11,31 @@ const CustomerOrderAccordion = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
   return (
-    <Pressable
+    <View
       style={tw`mx-2 my-1 border rounded-lg `}
       onPress={() => setExpanded(!expanded)}
     >
-      <View style={tw`flex flex-row justify-between w-full px-4`}>
-        <Text style={tw`text-lg font-semibold`}>{title} </Text>
-        <Text style={tw`text-lg font-semibold`}>{expanded ? "-" : "+"}</Text>
-      </View>
-      <View style={tw`flex flex-row w-full px-4 justify-center`}>
-        <Text style={tw`text-lg font-semibold`}>Tips: {tips} | </Text>
-        <Text style={tw`text-lg font-semibold`}>Subtotal: {subtotal} | </Text>
-        <Text style={tw`text-lg font-semibold`}>Items: {prodAmt} </Text>
-      </View>
+      <Pressable
+        onPress={() => setExpanded(!expanded)}
+      >
+        <View style={tw`flex flex-row justify-between w-full px-4`}>
+          <Text style={tw`text-lg font-semibold`}>{title} </Text>
+          <Text style={tw`text-lg font-semibold`}>{expanded ? "-" : "+"}</Text>
+        </View>
+        <View style={tw`flex flex-row w-full px-4 justify-center`}>
+          <Text style={tw`text-lg font-semibold`}>Tips: {tips} | </Text>
+          <Text style={tw`text-lg font-semibold`}>Subtotal: {subtotal} | </Text>
+          <Text style={tw`text-lg font-semibold`}>Items: {prodAmt} </Text>
+        </View>
+      </Pressable>
       <View
         style={tw`px-4 overflow-hidden ${
-          expanded ? "max-h-[250px]" : "max-h-[0px]"
+          expanded ? "max-h-[400px]" : "max-h-[0px]"
         }`}
       >
         {children}
       </View>
-    </Pressable>
+    </View>
   );
 };
 

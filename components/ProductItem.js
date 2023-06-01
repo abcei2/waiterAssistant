@@ -1,13 +1,38 @@
 import tw from "twrnc";
-import { View, Text, TextInput, ImageBackground } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  ImageBackground,
+  Pressable,
+} from "react-native";
 import { SvgComponent } from "../icons";
+import { useEffect, useState } from "react";
 
-const ProductItem = ({ name, srcImg }) => {
+const ProductItem = ({ product, onAmountChange}) => {
+  const [amount, setAmount] = useState(0);
+  const { name, srcImg, price } = product;
+
+  useEffect(() => {
+    onAmountChange(amount);
+  }, [amount]);
+
+  const increase = () => {
+    setAmount((prevAmount) => Number(prevAmount) + 1);
+  };
+  const decrease = () => {
+    if (amount === 0) return;
+    setAmount((prevAmount) => Number(prevAmount) - 1);
+  };
+
+
   return (
     <View style={tw`flex gap-2 border border-black rounded-xl p-2`}>
       <Text style={tw`text-2xl font-extrabold text-center`}>{name}</Text>
       <View style={tw`flex flex-row justify-center items-center gap-2`}>
-        <SvgComponent width="40px" />
+        <Pressable onPress={decrease}>
+          <SvgComponent width="40px" />
+        </Pressable>
         <View style={tw`flex justify-center items-center`}>
           <ImageBackground
             style={tw`rounded-t-lg overflow-hidden w-full h-[150px] flex items-center justify-center`}
@@ -15,7 +40,9 @@ const ProductItem = ({ name, srcImg }) => {
           >
             <TextInput
               style={tw`p-1 border text-lg rounded-xl w-[50%] bg-white text-center`}
-              value="0"
+              value={amount.toString()}
+              onChangeText={(text) => setAmount(text)}
+              inputMode="numeric"
             />
           </ImageBackground>
           <View
@@ -24,10 +51,12 @@ const ProductItem = ({ name, srcImg }) => {
             <Text style={tw`text-xl font-extrabold text-center`}>
               SUB TOTAL:{" "}
             </Text>
-            <Text style={tw`text-xl`}>$ 0.00</Text>
+            <Text style={tw`text-xl`}>${price*amount}</Text>
           </View>
         </View>
-        <SvgComponent width="40px" />
+        <Pressable onPress={increase}>
+          <SvgComponent width="40px" />
+        </Pressable>
       </View>
     </View>
   );

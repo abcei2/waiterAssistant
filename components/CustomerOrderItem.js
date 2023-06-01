@@ -4,59 +4,48 @@ import { Modal, View, Text, Pressable, ScrollView } from "react-native";
 import { SvgComponent } from "../icons";
 import ProductFastSearch from "./ProductFastSearch";
 
-export default function CustomerOrderItem({updateCustomerOrder}) {
+export default function CustomerOrderItem({ updateCustomerOrder }) {
   const [isVisible, setIsVisible] = useState(false);
-  const [productsInfo, setProductsInfo] = useState([
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-    { name: "Coca Cola", amount: 2, subtotal: 20, price: 10 },
-  ]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
   useEffect(() => {
-    updateCustomerOrder(productsInfo, 5);
-  }, [productsInfo]);
+    updateCustomerOrder(selectedProducts, 5);
+  }, [selectedProducts]);
 
-  // const addCustomerProduct = (index, customerProducts, tips=5) => {
-  //   setCustomerTotalOrders((prevCustomerTotalOrders) => {
-  //     const newCustomerOrders = [...prevCustomerTotalOrders];
-  //     newCustomerOrders[index] = {
-  //       subtotal: customerProducts.map((prod) => prod.subtotal).reduce((a, b) => a + b),
-  //       prodAmt: customerProducts.map((prod) => prod.amount).reduce((a, b) => a + b),
-  //       tips,
-  //     };
-  //     return newCustomerOrders;
-  //   });
-  // };
+  const updateSelectedProducts = (newSelectedProducts) => {
+    setSelectedProducts([...selectedProducts, ...newSelectedProducts]);
+  };
+
   const increaseProductAmount = (index) => {
-    setProductsInfo((prevProductsInfo) => {
-      const newProductsInfo = [...prevProductsInfo];
-      newProductsInfo[index].amount += 1;
-      newProductsInfo[index].subtotal += newProductsInfo[index].price;
-      return newProductsInfo;
-    })
-  };
-  const decreaseProductAmount = (index) => {
-    setProductsInfo((prevProductsInfo) => {
-      const newProductsInfo = [...prevProductsInfo];
-      if(newProductsInfo[index].amount === 1) {
-        newProductsInfo.splice(index, 1) 
-      }else{
-        newProductsInfo[index].amount -= 1;
-        newProductsInfo[index].subtotal -= newProductsInfo[index].price;
-      }
-      return newProductsInfo;
-    })
+    setSelectedProducts((prevSelectedProducts) => {
+      const newSelectedProducts = [...prevSelectedProducts];
+      newSelectedProducts[index].amount += 1;
+      newSelectedProducts[index].subtotal += newSelectedProducts[index].price;
+      return newSelectedProducts;
+    });
   };
 
+  const decreaseProductAmount = (index) => {
+    setSelectedProducts((prevSelectedProducts) => {
+      const newSelectedProducts = [...prevSelectedProducts];
+      if (newSelectedProducts[index].amount === 1) {
+        newSelectedProducts.splice(index, 1);
+      } else {
+        newSelectedProducts[index].amount -= 1;
+        newSelectedProducts[index].subtotal -= newSelectedProducts[index].price;
+      }
+      return newSelectedProducts;
+    });
+  };
+
+  const handleModalVisibility = (show) => {
+    setIsVisible(show);
+  };
 
   return (
     <>
       <Pressable
-        onPress={() => setIsVisible(true)}
+        onPress={() => handleModalVisibility(true)}
         style={tw`flex flex-row items-center gap-1 pl-2`}
       >
         <SvgComponent width="30px" />
@@ -64,27 +53,52 @@ export default function CustomerOrderItem({updateCustomerOrder}) {
       </Pressable>
 
       <ScrollView>
-        {productsInfo.map((prodAndAmount, index) => (
+        <View
+          style={tw`flex flex-row justify-around items-center px-4 py-2 gap-2`}
+        >
+          <ScrollView horizontal style={tw`w-[50%]`}>
+            <Text style={tw`text-base font-semibold `}>NAME</Text>
+          </ScrollView>
+          <View style={tw`flex flex-row items-center gap-1`}>
+            <Text style={tw`text-base font-semibold`}>
+              AMOUNT
+            </Text>
+          </View>
+          <Text style={tw`text-base font-semibold`}>
+            SUBTOTAL
+          </Text>
+        </View>
+        {selectedProducts.map((productInfo, index) => (
           <View
             key={index}
-            style={tw`flex flex-row justify-between items-center px-4 py-2`}
+            style={tw`flex flex-row justify-around items-center px-4 py-2 `}
           >
-            <Text style={tw`text-xl font-semibold`}>{prodAndAmount.name}</Text>
+            <ScrollView horizontal style={tw`max-w-[50%]`}>
+              <Text style={tw`text-base font-semibold `}>
+                {productInfo.name}
+              </Text>
+            </ScrollView>
 
-            <View style={tw`flex flex-row items-center gap-1`}>
-              <Pressable onPress={()=>decreaseProductAmount(index)} style={tw`rounded-full bg-blue-300 w-[20px] h-[20px] text-lg`}>
+            <View style={tw`flex flex-row items-center gap-2`}>
+              <Pressable
+                onPress={() => decreaseProductAmount(index)}
+                style={tw`rounded-full bg-blue-300 w-[20px] h-[20px] text-base`}
+              >
                 <Text style={tw`text-center font-extrabold`}>-</Text>
               </Pressable>
-              <Text style={tw`text-xl font-semibold`}>
-                {prodAndAmount.amount}
+              <Text style={tw`text-base font-semibold`}>
+                {productInfo.amount}
               </Text>
 
-              <Pressable onPress={()=>increaseProductAmount(index)} style={tw`rounded-full bg-blue-300 w-[20px] h-[20px]`}>
+              <Pressable
+                onPress={() => increaseProductAmount(index)}
+                style={tw`rounded-full bg-blue-300 w-[20px] h-[20px]`}
+              >
                 <Text style={tw`text-center font-extrabold`}>+</Text>
               </Pressable>
             </View>
-            <Text style={tw`text-xl font-semibold`}>
-              {prodAndAmount.subtotal}
+            <Text style={tw`text-base font-semibold`}>
+              ${productInfo.subtotal}
             </Text>
           </View>
         ))}
@@ -92,22 +106,14 @@ export default function CustomerOrderItem({updateCustomerOrder}) {
 
       <Modal
         animationType={"fade"}
-        onRequestClose={() => setIsVisible(false)}
+        onRequestClose={() => handleModalVisibility(false)}
         visible={isVisible}
       >
-        <View style={tw`pt-2 px-1 flex gap-3`}>
-          <View style={tw`flex gap-3`}>
-            <Pressable
-              style={tw`px-2 py-1 bg-black rounded-lg wAuto w-[50px]`}
-              onPress={() => setIsVisible(false)}
-            >
-              <Text style={tw`text-white`} resizeMode="contain">
-                Back
-              </Text>
-            </Pressable>
-          </View>
-          <ProductFastSearch />
-        </View>
+        <ProductFastSearch
+          handleModalVisibility={handleModalVisibility}
+          currentSelectedProducts={selectedProducts}
+          updateSelectedProducts={updateSelectedProducts}
+        />
       </Modal>
     </>
   );
