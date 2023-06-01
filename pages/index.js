@@ -36,6 +36,7 @@ export default function App() {
       </View>
       {customerTotalOrders.map((customerTotalOrder, index) => (
         <CustomerOrderAccordion
+          key={index}
           title={`Customer #${index + 1}`}
           subtotal={customerTotalOrder.subtotal}
           tips={customerTotalOrder.tips}
