@@ -52,7 +52,7 @@ const ProductFastSearch = ({
     <View style={tw`pt-2 px-1 flex gap-3`}>
       <View style={tw`flex flex-row gap-3 justify-between px-1`}>
         <Pressable
-          style={tw`flex items-center justify-center p-2 bg-black rounded-lg wAuto w-[50px]`}
+          style={tw`flex items-center justify-center p-2 bg-black rounded-lg w-[50px]`}
           onPress={() => handleModalVisibility(false)}
         >
           <Text style={tw`text-white `} resizeMode="contain">
@@ -60,7 +60,7 @@ const ProductFastSearch = ({
           </Text>
         </Pressable>
         <Pressable
-          style={tw`flex items-center justify-center p-2 bg-black rounded-lg wAuto w-[100px]`}
+          style={tw`flex items-center justify-center p-2 bg-black rounded-lg w-[100px]`}
           onPress={() => saveSelectionAndClose()}
         >
           <Text style={tw`text-white `} resizeMode="contain">

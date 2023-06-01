@@ -31,7 +31,7 @@ const ProductItem = ({ product, onAmountChange}) => {
       <Text style={tw`text-2xl font-extrabold text-center`}>{name}</Text>
       <View style={tw`flex flex-row justify-center items-center gap-2`}>
         <Pressable onPress={decrease}>
-          <SvgComponent width="40px" />
+          <SvgComponent icon="remove" width="40px" />
         </Pressable>
         <View style={tw`flex justify-center items-center`}>
           <ImageBackground
