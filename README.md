@@ -1,24 +1,28 @@
-# [Next.js Example](https://www.nextjs.org/)
+# [Waiter assistant](https://waiter-assistant.vercel.app)
+This demo aims to:
+1. Collect table orders based on who ordered so him can bring them the check for
+their products afterwards.
+2. Generate the check for each of the members of a table based on what they
+ordered.
+3. Include the approved tip for each table member in their checks, and collect it easily
 
-<p>
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
+### 🏁 Installation
 
-This demo shows you how to setup your Next.js website to use packages from the Expo SDK like Camera, Gestures, Permissions, etc... Refer to the [Next adapter docs](https://github.com/expo/expo-cli/tree/main/packages/next-adapter) to learn how to add more React Native packages to your Next.js project.
+Clone the code and install packages
+```bash
+git clone https://github.com/abcei2/waiterAssistant
+cd waiterAssistant
+yarn install
+```
 
-### 🏁 New Commands
-
-When targeting web, you'll need to use the Next.js CLI instead of Expo CLI:
+- **Starting on androi or ios**
+  - ✅ `yarn run {android / ios}`
 
 - **Starting web**
-
-  - 🚫 `yarn expo`
-  - ✅ `yarn next`
+  - ✅ `yarn run web`
 
 - **Building web**
-  - 🚫 `yarn expo export:web`
-  - ✅ `yarn next build`
+  - ✅ `yarn build`
 
 ### 👀 More Info
 
