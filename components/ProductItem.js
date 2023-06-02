@@ -36,7 +36,7 @@ const ProductItem = ({ product, onAmountChange}) => {
         <View style={tw`flex justify-center items-center`}>
           <ImageBackground
             style={tw`rounded-t-lg overflow-hidden w-full h-[150px] flex items-center justify-center`}
-            src={srcImg}
+            source={ {uri: srcImg}}
           >
             <TextInput
               style={tw`p-1 border text-lg rounded-xl w-[50%] bg-white text-center`}

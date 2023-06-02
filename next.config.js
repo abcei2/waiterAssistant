@@ -7,6 +7,8 @@ const nextConfig = withExpo({
   transpilePackages: [
     "react-native",
     "expo",
+    "react-native-svg",
+    "twrnc"
     // Add more React Native / Expo packages here...
   ],
   experimental: {
