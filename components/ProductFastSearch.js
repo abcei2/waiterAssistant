@@ -68,7 +68,7 @@ const ProductFastSearch = ({
           </Text>
         </Pressable>
       </View>
-      <View style={tw`flex gap-2 p-1`}>
+      <View style={tw`flex gap-2 p-1 h-screen`}>
         <TextInput
           style={tw`border text-lg rounded-lg w-full p-2s`}
           onChangeText={onChangeSearch}
