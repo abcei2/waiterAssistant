@@ -19,7 +19,7 @@ const ProductItem = ({ product, onAmountChange}:{
 
   useEffect(() => {
     onAmountChange(amount);
-  }, [amount]);
+  }, [amount, onAmountChange]);
 
   const increase = () => {
     setAmount((prevAmount) => Number(prevAmount) + 1);

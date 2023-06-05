@@ -12,7 +12,7 @@ const nextConfig = withExpo({
     // Add more React Native / Expo packages here...
   ],
   experimental: {
-    forceSwcTransforms: true,
+    forceSwcTransforms: false,
   },
 });
 

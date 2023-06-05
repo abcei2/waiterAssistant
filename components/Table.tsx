@@ -48,7 +48,7 @@ export default function Table() {
         style={tw`flex flex-row items-center gap-1 pl-2`}
       >
         <SvgComponent />
-        <Text style={tw`text-xl`}>New table's costumer</Text>
+        <Text style={tw`text-xl`}>{"New table's costumer"}</Text>
       </Pressable>
       {customerTotalOrders.map((customerTotalOrder, index) => (
         <CustomerOrderAccordion

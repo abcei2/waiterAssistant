@@ -1,6 +1,6 @@
 import tw from "twrnc";
 import { useState } from "react";
-import { Pressable, Text, View, ViewProps } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { SvgComponent } from "../icons";
 import { CustomerTotalOrderType } from "../types";
 

@@ -1,8 +1,9 @@
 import tw from "twrnc";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { View, TextInput, ScrollView, Pressable, Text } from "react-native";
 import { WAITER_MENU } from "../constants";
 import ProductItem from "./ProductItem";
+
 import { CustomerOrderType, ProductsType } from "../types";
 
 const ProductFastSearch = ({
@@ -11,7 +12,7 @@ const ProductFastSearch = ({
   currentSelectedProducts = [],
 }: {
   handleModalVisibility: (show: boolean) => void;
-  updateSelectedProducts: (selectedProducts: any) => void;
+  updateSelectedProducts: (selectedProducts: CustomerOrderType) => void;
   currentSelectedProducts?: CustomerOrderType[];
 }) => {
   const unselectedProducts = WAITER_MENU.filter(
