@@ -12,7 +12,7 @@ const ProductFastSearch = ({
   currentSelectedProducts = [],
 }: {
   handleModalVisibility: (show: boolean) => void;
-  updateSelectedProducts: (selectedProducts: CustomerOrderType) => void;
+  updateSelectedProducts: (selectedProducts: CustomerOrderType[]) => void;
   currentSelectedProducts?: CustomerOrderType[];
 }) => {
   const unselectedProducts = WAITER_MENU.filter(
