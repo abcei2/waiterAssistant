@@ -1,5 +1,5 @@
 import tw from "twrnc";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, TextInput, ScrollView, Pressable, Text } from "react-native";
 import { WAITER_MENU } from "../constants";
 import ProductItem from "./ProductItem";
@@ -14,14 +14,14 @@ const ProductFastSearch = ({
   updateSelectedProducts: (selectedProducts: any) => void;
   currentSelectedProducts?: CustomerOrderType[];
 }) => {
-  const [unselectedProducts, setUnselectedProducts] = useState<ProductsType[]>(
-    WAITER_MENU.filter(
-      (item) =>
-        !currentSelectedProducts.find(
-          (currentSelectedProducts) => currentSelectedProducts.id === item.id
-        )
-    )
+  const unselectedProducts = WAITER_MENU.filter(
+    (item) =>
+      !currentSelectedProducts.find(
+        (currentSelectedProducts) => currentSelectedProducts.id === item.id
+      )
   );
+  const [searchableProducts, setSearchableProducts] =
+    useState<ProductsType[]>(unselectedProducts);
 
   const [currentOrder, setCurrentOrder] = useState<CustomerOrderType[]>(
     currentSelectedProducts
@@ -29,20 +29,21 @@ const ProductFastSearch = ({
 
   const onChangeSearch = (currentText: string) => {
     if (currentText.length > 0) {
-      setUnselectedProducts(
+      setSearchableProducts(
         WAITER_MENU.filter((item) =>
           item.name.toLowerCase().includes(currentText.toLowerCase())
         )
       );
     } else {
-      setUnselectedProducts(WAITER_MENU);
+      setSearchableProducts(WAITER_MENU);
     }
   };
 
   const onAmountChange = (productId: number, newAmount: number) => {
     const currentOrderCopy = [...currentOrder];
     const index = currentOrderCopy.findIndex((item) => item.id === productId);
-    if (index !== -1) {
+    if (index == -1 && newAmount == 0) return;
+    if (index != -1) {
       if (newAmount === 0) {
         currentOrderCopy.splice(index, 1);
       } else {
@@ -50,15 +51,27 @@ const ProductFastSearch = ({
         currentOrderCopy[index].subtotal =
           currentOrderCopy[index].price * newAmount;
       }
-      setCurrentOrder(currentOrderCopy);
+    } else {
+      const newProductIndex = unselectedProducts.findIndex(
+        (item) => item.id === productId
+      );
+      const { name, price } = unselectedProducts[newProductIndex];
+      currentOrderCopy.push({
+        id: productId,
+        name,
+        price,
+        amount: newAmount,
+        subtotal: newAmount * price,
+      });
     }
+    setCurrentOrder(currentOrderCopy);
   };
 
   const saveSelectionAndClose = () => {
     updateSelectedProducts(currentOrder);
     handleModalVisibility(false);
   };
-  
+
   return (
     <View style={tw`pt-2 px-1 flex gap-3`}>
       <View style={tw`flex flex-row gap-3 justify-between px-1`}>
@@ -81,7 +94,7 @@ const ProductFastSearch = ({
           onChangeText={onChangeSearch}
         />
         <ScrollView contentContainerStyle={tw`flex gap-2`}>
-          {unselectedProducts.map((item) => (
+          {searchableProducts.map((item) => (
             <ProductItem
               key={item.id}
               product={item}
