@@ -3,20 +3,30 @@ import { useEffect, useState } from "react";
 import { Modal, View, Text, Pressable, ScrollView } from "react-native";
 import { SvgComponent } from "../icons";
 import ProductFastSearch from "./ProductFastSearch";
+import { CustomerOrderType } from "../types";
 
-export default function CustomerOrderItem({ updateCustomerOrder }) {
+export default function CustomerOrderItem({
+  updateCustomerOrder,
+}: {
+  updateCustomerOrder: (
+    selectedProducts: CustomerOrderType[],
+    index: number
+  ) => void;
+}) {
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState<CustomerOrderType[]>(
+    []
+  );
 
   useEffect(() => {
     updateCustomerOrder(selectedProducts, 5);
   }, [selectedProducts]);
 
-  const updateSelectedProducts = (newSelectedProducts) => {
+  const updateSelectedProducts = (newSelectedProducts: CustomerOrderType[]) => {
     setSelectedProducts([...selectedProducts, ...newSelectedProducts]);
   };
 
-  const increaseProductAmount = (index) => {
+  const increaseProductAmount = (index: number) => {
     setSelectedProducts((prevSelectedProducts) => {
       const newSelectedProducts = [...prevSelectedProducts];
       newSelectedProducts[index].amount += 1;
@@ -25,7 +35,7 @@ export default function CustomerOrderItem({ updateCustomerOrder }) {
     });
   };
 
-  const decreaseProductAmount = (index) => {
+  const decreaseProductAmount = (index: number) => {
     setSelectedProducts((prevSelectedProducts) => {
       const newSelectedProducts = [...prevSelectedProducts];
       if (newSelectedProducts[index].amount === 1) {
@@ -38,7 +48,7 @@ export default function CustomerOrderItem({ updateCustomerOrder }) {
     });
   };
 
-  const handleModalVisibility = (show) => {
+  const handleModalVisibility = (show: boolean) => {
     setIsVisible(show);
   };
 
@@ -60,13 +70,9 @@ export default function CustomerOrderItem({ updateCustomerOrder }) {
             <Text style={tw`text-base font-semibold `}>NAME</Text>
           </ScrollView>
           <View style={tw`flex flex-row items-center gap-1`}>
-            <Text style={tw`text-base font-semibold`}>
-              AMOUNT
-            </Text>
+            <Text style={tw`text-base font-semibold`}>AMOUNT</Text>
           </View>
-          <Text style={tw`text-base font-semibold`}>
-            SUBTOTAL
-          </Text>
+          <Text style={tw`text-base font-semibold`}>SUBTOTAL</Text>
         </View>
         {selectedProducts.map((productInfo, index) => (
           <View

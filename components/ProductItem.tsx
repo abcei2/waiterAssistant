@@ -8,8 +8,12 @@ import {
 } from "react-native";
 import { SvgComponent } from "../icons";
 import { useEffect, useState } from "react";
+import { ProductsType } from "../types";
 
-const ProductItem = ({ product, onAmountChange}) => {
+const ProductItem = ({ product, onAmountChange}:{
+  product:ProductsType,
+  onAmountChange: (amount: number) => void;
+}) => {
   const [amount, setAmount] = useState(0);
   const { name, srcImg, price } = product;
 
@@ -41,7 +45,7 @@ const ProductItem = ({ product, onAmountChange}) => {
             <TextInput
               style={tw`p-1 border text-lg rounded-xl w-[50%] bg-white text-center`}
               value={amount.toString()}
-              onChangeText={(text) => setAmount(text)}
+              onChangeText={(text) => setAmount(Number(text))}
               inputMode="numeric"
             />
           </ImageBackground>

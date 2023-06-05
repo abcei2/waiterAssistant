@@ -1,19 +1,24 @@
 import tw from "twrnc";
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, ViewProps } from "react-native";
 import { SvgComponent } from "../icons";
+import { CustomerTotalOrderType } from "../types";
 
 const CustomerOrderAccordion = ({
   title,
   children,
-  tips,
-  subtotal,
-  prodAmt,
+  customerTotalOrder,
   removeCustomer
+}:{
+  title: string;
+  children: React.ReactNode;
+  customerTotalOrder: CustomerTotalOrderType
+  removeCustomer: () => void;  
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const { itemsCount, subtotal, tips } = customerTotalOrder;
   return (
-    <View
+    <Pressable
       style={tw`mx-2 my-1 border rounded-lg px-1 py-2 flex gap-2`}
       onPress={() => setExpanded(!expanded)}
     >
@@ -30,7 +35,7 @@ const CustomerOrderAccordion = ({
           <Text style={tw`text-lg font-semibold`}>
             Subtotal: ${subtotal} |{" "}
           </Text>
-          <Text style={tw`text-lg font-semibold`}>Items: {prodAmt} </Text>
+          <Text style={tw`text-lg font-semibold`}>Items: {itemsCount} </Text>
         </View>
       </Pressable>
       <View
@@ -40,7 +45,7 @@ const CustomerOrderAccordion = ({
       >
         {children}
       </View>
-    </View>
+    </Pressable>
   );
 };
 

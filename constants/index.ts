@@ -1,4 +1,6 @@
-export const WAITER_MENU = [
+import { ProductsType } from "../types";
+
+export const WAITER_MENU:ProductsType[] = [
     {
       id: 1,
       name: "French Fried Potatoes",

@@ -1,21 +1,22 @@
 import tw from "twrnc";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text } from "react-native";
 import { SvgComponent } from "../icons";
 import CustomerOrderItem from "../components/CustomerOrderItem";
 import CustomerOrderAccordion from "../components/CustomerOrderAccordion";
 import { useState } from "react";
+import { CustomerOrderType, CustomerTotalOrderType } from "../types";
 
 export default function Table() {
-  const [customerTotalOrders, setCustomerTotalOrders] = useState([]);
+  const [customerTotalOrders, setCustomerTotalOrders] = useState<CustomerTotalOrderType[]>([]);
 
-  const updateCustomerOrder = (index, customerProducts, tips = 5) => {
+  const updateCustomerOrder = (index:number, customerProducts:CustomerOrderType[], tips = 5) => {
     setCustomerTotalOrders((prevCustomerTotalOrders) => {
       const newCustomerOrders = [...prevCustomerTotalOrders];
       newCustomerOrders[index] = {
         subtotal: customerProducts
           .map((prod) => prod.subtotal)
           .reduce((a, b) => a + b, 0),
-        prodAmt: customerProducts
+        itemsCount: customerProducts
           .map((prod) => prod.amount)
           .reduce((a, b) => a + b, 0),
         tips,
@@ -27,11 +28,11 @@ export default function Table() {
   const newCustomer = () => {
     setCustomerTotalOrders((prevCustomerTotalOrders) => [
       ...prevCustomerTotalOrders,
-      { subtotal: 0, tips: 0, prodAmt: 0 },
+      { subtotal: 0, tips: 0, itemsCount: 0, price: 0, name: "", id: 0 },
     ]);
   };
 
-  const removeCustomer = (index) => {
+  const removeCustomer = (index:number) => {
     setCustomerTotalOrders((prevCustomerTotalOrders) => {
       const newCustomerOrders = [...prevCustomerTotalOrders];
       newCustomerOrders.splice(index, 1);
@@ -53,9 +54,7 @@ export default function Table() {
         <CustomerOrderAccordion
           key={index}
           title={`Customer #${index + 1}`}
-          subtotal={customerTotalOrder.subtotal}
-          tips={customerTotalOrder.tips}
-          prodAmt={customerTotalOrder.prodAmt}
+          customerTotalOrder={customerTotalOrder}          
           removeCustomer={() => removeCustomer(index)}
         >
           <CustomerOrderItem
