@@ -7,23 +7,22 @@ import { CustomerOrderType } from "../types";
 
 export default function CustomerOrderItem({
   updateCustomerOrder,
+  currentSelectedProducts,
 }: {
-  updateCustomerOrder: (
-    selectedProducts: CustomerOrderType[],
-    index: number
-  ) => void;
+  updateCustomerOrder: (selectedProducts: CustomerOrderType[]) => void;
+  currentSelectedProducts: CustomerOrderType[];
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState<CustomerOrderType[]>(
-    []
+    currentSelectedProducts
   );
 
   useEffect(() => {
-    updateCustomerOrder(selectedProducts, 5);
+    updateCustomerOrder(selectedProducts);
   }, [selectedProducts]);
 
   const updateSelectedProducts = (newSelectedProducts: CustomerOrderType[]) => {
-    setSelectedProducts([...selectedProducts, ...newSelectedProducts]);
+    setSelectedProducts([...newSelectedProducts]);
   };
 
   const increaseProductAmount = (index: number) => {

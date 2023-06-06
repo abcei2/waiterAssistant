@@ -1,7 +1,14 @@
+export type TableTotalOrderType = {
+  tableId: number;
+  total: number;
+  tips: number;
+};
+
 export type CustomerTotalOrderType = {
   itemsCount: number;
   subtotal: number;
   tips: number;
+  customerSummary: CustomerOrderType[];
 };
 
 export type CustomerOrderType = {

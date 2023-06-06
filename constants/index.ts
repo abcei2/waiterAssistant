@@ -1,5 +1,8 @@
 import { ProductsType } from "../types";
 
+
+export const MAX_TIP = 100;
+
 export const WAITER_MENU:ProductsType[] = [
     {
       id: 1,

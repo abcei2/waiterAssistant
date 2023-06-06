@@ -1,22 +1,27 @@
 import tw from "twrnc";
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, View, TextInput } from "react-native";
 import { SvgComponent } from "../icons";
 import { CustomerTotalOrderType } from "../types";
+import { MAX_TIP } from "../constants";
 
 const CustomerOrderAccordion = ({
   title,
   children,
   customerTotalOrder,
-  removeCustomer
-}:{
+  updateTips,
+  removeCustomer,
+}: {
   title: string;
   children: React.ReactNode;
-  customerTotalOrder: CustomerTotalOrderType
-  removeCustomer: () => void;  
+  updateTips: (tips: number) => void;
+  customerTotalOrder: CustomerTotalOrderType;
+  removeCustomer: () => void;
 }) => {
   const [expanded, setExpanded] = useState(false);
   const { itemsCount, subtotal, tips } = customerTotalOrder;
+  const [tipsAmount, setTipsAmount] = useState(tips);
+
   return (
     <Pressable
       style={tw`mx-2 my-1 border rounded-lg px-1 py-2 flex gap-2`}
@@ -31,7 +36,20 @@ const CustomerOrderAccordion = ({
           <Text style={tw`text-lg font-semibold`}>{expanded ? "-" : "+"}</Text>
         </View>
         <View style={tw`flex flex-row w-full px-4 justify-center`}>
-          <Text style={tw`text-lg font-semibold`}>Tips: ${tips} | </Text>
+          <Text style={tw`text-lg font-semibold`}>
+            Tips: $
+            <TextInput
+              value={tipsAmount ? tipsAmount.toString() : "0"}
+              onChangeText={(text) => {
+                const newTips = Number(text) > MAX_TIP ? MAX_TIP : Number(text);
+                setTipsAmount(newTips);
+                updateTips(newTips);
+              }}
+              inputMode="numeric"
+              style={tw`rounded-lg text-center text-lg font-semibold w-8 bg-white`}
+            />{" "}
+            |{" "}
+          </Text>
           <Text style={tw`text-lg font-semibold`}>
             Subtotal: ${subtotal} |{" "}
           </Text>
