@@ -8,7 +8,8 @@ const nextConfig = withExpo({
     "react-native",
     "expo",
     "react-native-svg",
-    "twrnc"
+    "twrnc",
+    "react-native-web"
     // Add more React Native / Expo packages here...
   ],
   experimental: {
