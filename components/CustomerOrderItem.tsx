@@ -20,7 +20,7 @@ export default function CustomerOrderItem({
 
   useEffect(() => {
     updateCustomerOrder(selectedProducts, 5);
-  }, [selectedProducts, updateCustomerOrder]);
+  }, [selectedProducts]);
 
   const updateSelectedProducts = (newSelectedProducts: CustomerOrderType[]) => {
     setSelectedProducts([...selectedProducts, ...newSelectedProducts]);
