@@ -24,6 +24,16 @@ yarn install
 - **Building web**
   - ✅ `yarn build`
 
+### Desktop installation.
+
+Trying to follow this guide: [react-native-windows](https://microsoft.github.io/react-native-windows/docs/getting-started), and so others,
+but without success because of many problems on RNVG project packages used by react-native-svg. 
+
+### TODO
+- [ ] Compile on windows.
+- [ ] Code with test coverage <50%.
+
 ### 👀 More Info
 
-- [Next Adapter repo](https://github.com/expo/expo-cli/tree/main/packages/next-adapter)
+- [React native + Expo + Nextjs](https://docs.expo.dev/guides/using-nextjs/)
+
