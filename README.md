@@ -1,5 +1,6 @@
 # [Waiter assistant](https://waiter-assistant.vercel.app)
 _**This code was made for a job interview**_  
+
 https://github.com/abcei2/waiterAssistant/assets/54479511/ac2e0aa4-1ab2-40de-bc5d-198d7d946ea1
 
 This demo aims to:
