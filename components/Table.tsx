@@ -47,7 +47,15 @@ export default function Table() {
   const newCustomer = () => {
     setCustomerTotalOrders((prevCustomerTotalOrders) => [
       ...prevCustomerTotalOrders,
-      { subtotal: 0, tips: 0, itemsCount: 0, price: 0, name: "", id: 0, customerSummary: [] },
+      {
+        subtotal: 0,
+        tips: 0,
+        itemsCount: 0,
+        price: 0,
+        name: "",
+        id: 0,
+        customerSummary: [],
+      },
     ]);
   };
 
@@ -60,48 +68,51 @@ export default function Table() {
   };
 
   return (
-    <ScrollView style={tw`pt-10 bg-green-200 dark:bg-black absolute inset-0`}>
-      <Text style={tw`text-2xl font-extrabold text-center`}>Table #1</Text>
-      <View style={tw` w-full flex-row justify-between gap-2 px-2`}>
-        <Pressable
-          onPress={showReceipt?() => setShowReceipt(false):newCustomer}
-          style={tw`flex flex-row items-center gap-1 `}
-        >
-          <SvgComponent icon={showReceipt?"back":"add"}/>
-          <Text style={tw`text-xl`}>{
-            showReceipt?"Back":"New costumer"
-          }</Text>
-        </Pressable>
+    <View style={tw`pt-10 bg-green-200 flex items-center absolute inset-0`}>
+      <ScrollView style={tw`w-full md:w-[60%]`}>
+        <Text style={tw`text-2xl font-extrabold text-center md:pb-4`}>Table #1</Text>
+        <View style={tw` w-full flex-row justify-between gap-2 px-2`}>
+          <Pressable
+            onPress={showReceipt ? () => setShowReceipt(false) : newCustomer}
+            style={tw`flex flex-row items-center gap-1 `}
+          >
+            <SvgComponent icon={showReceipt ? "back" : "add"} />
+            <Text style={tw`text-xl`}>
+              {showReceipt ? "Back" : "New costumer"}
+            </Text>
+          </Pressable>
 
-        <Pressable 
-          onPress={() => setShowReceipt(true)}
-          style={tw`flex flex-row items-center gap-1 `}>
-          <SvgComponent icon="download" />
-          <Text style={tw`text-xl`}>{"Receipt"}</Text>
-        </Pressable>
-      </View>
-      {showReceipt ? (
-        <Receipt customerTotalOrders={customerTotalOrders} />
-      ) : (
-        <>
-          {customerTotalOrders.map((customerTotalOrder, index) => (
-            <CustomerOrderAccordion
-              key={index}
-              title={`Customer #${index + 1}`}
-              customerTotalOrder={customerTotalOrder}
-              updateTips={(tips: number) => updateTips(index, tips)}
-              removeCustomer={() => removeCustomer(index)}
-            >
-              <CustomerOrderItem
-                currentSelectedProducts={customerTotalOrder.customerSummary}
-                updateCustomerOrder={(customerProducts) =>
-                  updateCustomerOrder(index, customerProducts)
-                }
-              />
-            </CustomerOrderAccordion>
-          ))}
-        </>
-      )}
-    </ScrollView>
+          <Pressable
+            onPress={() => setShowReceipt(true)}
+            style={tw`flex flex-row items-center gap-1 `}
+          >
+            <SvgComponent icon="download" />
+            <Text style={tw`text-xl`}>{"Receipt"}</Text>
+          </Pressable>
+        </View>
+        {showReceipt ? (
+          <Receipt customerTotalOrders={customerTotalOrders} />
+        ) : (
+          <>
+            {customerTotalOrders.map((customerTotalOrder, index) => (
+              <CustomerOrderAccordion
+                key={index}
+                title={`Customer #${index + 1}`}
+                customerTotalOrder={customerTotalOrder}
+                updateTips={(tips: number) => updateTips(index, tips)}
+                removeCustomer={() => removeCustomer(index)}
+              >
+                <CustomerOrderItem
+                  currentSelectedProducts={customerTotalOrder.customerSummary}
+                  updateCustomerOrder={(customerProducts) =>
+                    updateCustomerOrder(index, customerProducts)
+                  }
+                />
+              </CustomerOrderAccordion>
+            ))}
+          </>
+        )}
+      </ScrollView>
+    </View>
   );
 }

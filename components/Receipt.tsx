@@ -26,7 +26,7 @@ const Receipt = ({
       {customerTotalOrders.map((customerTotalOrder, index) => (
         <View key={index} style={tw`rounded-lg border bg-gray-200`}>
           <View style={tw`w-full text-center rounded-t-lg`}>
-            <Text style={tw`text-base font-semibold w-full`}>Customer #{index+1}</Text>
+            <Text style={tw`text-base font-semibold`}>Customer #{index+1}</Text>
           </View>
           <View
             style={tw`flex flex-row justify-between px-2 bg-white rounded-b-lg`}
