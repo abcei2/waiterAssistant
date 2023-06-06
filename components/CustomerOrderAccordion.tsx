@@ -36,8 +36,8 @@ const CustomerOrderAccordion = ({
           <Text style={tw`text-lg font-semibold`}>{expanded ? "-" : "+"}</Text>
         </View>
         <View style={tw`flex flex-row w-full px-4 justify-center`}>
-          <Text style={tw`text-lg font-semibold`}>
-            Tips: $
+          <View style={tw`text-lg font-semibold flex-row`}>
+            <Text style={tw`text-lg font-semibold`}>Tips: $</Text>
             <TextInput
               value={tipsAmount ? tipsAmount.toString() : "0"}
               onChangeText={(text) => {
@@ -47,9 +47,9 @@ const CustomerOrderAccordion = ({
               }}
               inputMode="numeric"
               style={tw`rounded-lg text-center text-lg font-semibold w-8 bg-white`}
-            />{" "}
-            |{" "}
-          </Text>
+            />
+            <Text style={tw`text-lg font-semibold`}> | </Text>
+          </View>
           <Text style={tw`text-lg font-semibold`}>
             Subtotal: ${subtotal} |{" "}
           </Text>
