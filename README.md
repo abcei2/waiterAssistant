@@ -1,4 +1,7 @@
 # [Waiter assistant](https://waiter-assistant.vercel.app)
+
+https://github.com/abcei2/waiterAssistant/assets/54479511/ac2e0aa4-1ab2-40de-bc5d-198d7d946ea1
+
 This demo aims to:
 1. Collect table orders based on who ordered so him can bring them the check for
 their products afterwards.
